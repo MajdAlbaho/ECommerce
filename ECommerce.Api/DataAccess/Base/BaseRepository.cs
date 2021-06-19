@@ -14,9 +14,9 @@ namespace ECommerce.Api.DataAccess.Base
         private readonly IMapper _mapper;
         private readonly ECommerceContext _context;
 
-        public BaseRepository(IMapper mapper, ECommerceContext baseDbContext) {
+        public BaseRepository(IMapper mapper, ECommerceContext context) {
             _mapper = mapper;
-            _context = baseDbContext;
+            _context = context;
         }
 
         public virtual IQueryable<TEntity> Get() {
@@ -60,7 +60,6 @@ namespace ECommerce.Api.DataAccess.Base
             var result = await _context.AddAsync(entityToAdd);
             await SaveChangesAsync();
             return _mapper.Map<TModel>(result.Entity);
-
         }
         public virtual void AddRange(IList<TModel> modelsToAdd) {
             var entitiesToAdd = _mapper.Map<TEntity>(modelsToAdd);

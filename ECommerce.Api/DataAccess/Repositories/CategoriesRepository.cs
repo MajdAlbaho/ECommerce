@@ -7,8 +7,8 @@ namespace ECommerce.Api.DataAccess.Repositories
 {
     public class CategoriesRepository : BaseRepository<Model.Category, Category>, ICategoriesRepository
     {
-        public CategoriesRepository(IMapper mapper, ECommerceContext baseDbContext)
-            : base(mapper, baseDbContext) {
+        public CategoriesRepository(IMapper mapper, ECommerceContext context) 
+            : base(mapper, context) {
         }
     }
 }
