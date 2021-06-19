@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=.;Database=ECommerce;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DataAccess\Entities -t Categories,Products,ProductCategories -f
