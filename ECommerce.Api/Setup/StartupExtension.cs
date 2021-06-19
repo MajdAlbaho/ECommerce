@@ -1,5 +1,7 @@
 ﻿using ECommerce.Api.DataAccess;
+using ECommerce.Api.DataAccess.Base;
 using ECommerce.Api.DataAccess.Entities;
+using ECommerce.Api.DataAccess.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -34,8 +36,8 @@ namespace ECommerce.Api.Setup
             #endregion
 
             #region Repositories
-            //serviceCollection.AddIInjectableDependencies(typeof(CategoriesRepository));
-            //serviceCollection.AddTransient(typeof(IBaseRepository<,>), typeof(BaseRepository<,>));
+            serviceCollection.AddIInjectableDependencies(typeof(CategoriesRepository));
+            serviceCollection.AddTransient(typeof(IBaseRepository<,>), typeof(BaseRepository<,>));
             #endregion
 
             return serviceCollection;
