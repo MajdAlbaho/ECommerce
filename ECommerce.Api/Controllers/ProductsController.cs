@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using ECommerce.Api.DataAccess.IRepositories;
 using ECommerce.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Api.Controllers
 {
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class ProductsController : ControllerBase
     {
