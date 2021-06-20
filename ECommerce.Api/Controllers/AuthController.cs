@@ -25,33 +25,6 @@ namespace ECommerce.Api.Controllers
         }
 
         [HttpPost]
-        [Route("Register")]
-        public async Task<IActionResult> Register([FromBody] UserModel userModel) {
-            try {
-                if (userModel == null)
-                    return BadRequest("Invalid Registration");
-
-                var identityUser = new ApplicationUser {
-                    UserName = userModel.UserName,
-                    Email = userModel.UserName
-                };
-
-                var result = await _userManager.CreateAsync(identityUser, userModel.Password);
-                if (result.Succeeded)
-                    return Ok("User Registration Successful");
-
-                var dictionary = new ModelStateDictionary();
-                foreach (IdentityError error in result.Errors) {
-                    dictionary.AddModelError(error.Code, error.Description);
-                }
-
-                return BadRequest(new { Errors = dictionary });
-            } catch (Exception ex) {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] UserModel userModel) {
             try {
@@ -78,7 +51,7 @@ namespace ECommerce.Api.Controllers
                 var token = new JwtSecurityToken(
                     issuer: _configuration["JWT:ValidIssuer"],
                     audience: _configuration["JWT:ValidAudience"],
-                    expires: DateTime.Now.AddHours(3),
+                    expires: DateTime.Now.AddDays(1),
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );
@@ -88,6 +61,33 @@ namespace ECommerce.Api.Controllers
                     userId = identityUser.Id,
                     expiration = token.ValidTo
                 });
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("Register")]
+        public async Task<IActionResult> Register([FromBody] UserModel userModel) {
+            try {
+                if (userModel == null)
+                    return BadRequest("Invalid Registration");
+
+                var identityUser = new ApplicationUser {
+                    UserName = userModel.UserName,
+                    Email = userModel.UserName
+                };
+
+                var result = await _userManager.CreateAsync(identityUser, userModel.Password);
+                if (result.Succeeded)
+                    return Ok("User Registration Successful");
+
+                var dictionary = new ModelStateDictionary();
+                foreach (IdentityError error in result.Errors) {
+                    dictionary.AddModelError(error.Code, error.Description);
+                }
+
+                return BadRequest(new { Errors = dictionary });
             } catch (Exception ex) {
                 return BadRequest(ex.Message);
             }
