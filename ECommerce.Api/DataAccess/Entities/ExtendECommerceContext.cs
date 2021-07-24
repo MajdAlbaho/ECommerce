@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ECommerce.Api.Setup;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Api.DataAccess.Entities
@@ -7,6 +8,8 @@ namespace ECommerce.Api.DataAccess.Entities
     {
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.SeedData();
         }
     }
 }
